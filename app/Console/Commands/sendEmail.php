@@ -57,34 +57,35 @@ class sendEmail extends Command
         $this->info('Mails sent to all the clients whose domain is expired');
 
        //sending email if expirary date is 5 to 10 days away
-    // $data = User::all();
-    // foreach($data as $clients){
-    //       $today_date = Carbon::now();
-    //       $data_difference = $today_date->diffInDays($data->end_date, false);
-    //       echo $data_difference;
-    //     if($data_difference == 10){
-    //                 Mail::raw(" Dear {$clients->client_name},
-    //                     Your Domain Subscription will expire in 10 days. Please renew it soon.
+    $data = User::all();
+    foreach($data as $clients){
+          $today_date = Carbon::now();
+          $data_difference = $today_date->diffInDays($clients->end_date, false);
+        if($data_difference == 10){
+                    Mail::raw(" Dear {$clients->client_name},
+                        Your Domain Subscription will expire in 10 days. Please renew it soon.
 
-    //                     Thank you !", function($message) use ($clients)
-    //                     {
-    //                     $message->from('domain@pndc.com');
-    //                     $message->to($clients->client_email)->subject('Domain Expired');
-    //                     });
-    //                 $this->info('Mails sent to all the clients whose domain will expire in 10 days');
-    //         }
-    //         elseif($data_difference == 5)
-    //         {
-    //             Mail::raw(" Dear {$clients->client_name},
-    //             Your Domain Subscription will expire in 5 days. Please renew it soon.
+                        Thank you !", function($message) use ($clients)
+                        {
+                        $message->from('domain@pndc.com');
+                        $message->to($clients->client_email)->subject('Domain Expired');
+                        });
+                    $this->info('Mails sent to all the clients whose domain will expire in 10 days');
+            }
+            elseif($data_difference == 5)
+            {
+                Mail::raw(" Dear {$clients->client_name},
+                Your Domain Subscription will expire in 5 days. Please renew it soon.
 
-    //             Thank you !", function($message) use ($clients)
-    //             {
-    //             $message->from('domain@pndc.com');
-    //             $message->to($clients->client_email)->subject('Domain Expired');
-    //             });
-    //         $this->info('Mails sent to all the clients whose domain will expire in 5 days');
-    //     }
-    //     }
-    }
-}
+                Thank you !", function($message) use ($clients)
+                {
+                $message->from('domain@pndc.com');
+                $message->to($clients->client_email)->subject('Domain Expired');
+                });
+            $this->info('Mails sent to all the clients whose domain will expire in 5 days');
+
+          }
+       }
+      }
+   }
+
