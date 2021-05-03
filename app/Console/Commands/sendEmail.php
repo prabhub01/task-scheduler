@@ -46,12 +46,15 @@ class sendEmail extends Command
     // echo $users;
 
     foreach($users as $clients){
-        Mail::raw("Your Domain Subscription has expired!", function($message) use ($clients)
+        Mail::raw(" Dear {$clients->client_name},
+    Your Domain Subscription has expired on {$clients->end_date}. Please renew it soon.
+
+    Thank you !", function($message) use ($clients)
             {
             $message->from('domain@pndc.com');
             $message->to($clients->client_email)->subject('Domain Expired');
             });
             }
-        $this->info('Domain Expired mails has been send successfully');
+        $this->info('Mails sent to all the clients whose domain is expired');
     }
     }
